@@ -1,0 +1,19 @@
+{
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "deploy": "cp -R static/* ../priv/static/ && parcel build src/index.js --out-dir ../priv/static/dist --public-url dist  --no-cache",
+    "watch": "cp -R static/* ../priv/static/ && parcel watch src/index.js --out-dir ../priv/static/dist --public-url dist "
+  },
+  "dependencies": {
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel": "^1.12.4",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "3.2.0"
+  }
+}
