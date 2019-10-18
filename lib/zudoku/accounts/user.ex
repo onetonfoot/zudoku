@@ -1,4 +1,4 @@
-defmodule Zudoku.User do
+defmodule Zudoku.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +6,7 @@ defmodule Zudoku.User do
     field :email, :string
     field :name, :string
     field :password, :string
+    has_many :trials, Zudoku.Challenges.Trial
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Zudoku.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, [:email, :name, :password])
+    |> validate_required([:email, :name, :password])
   end
 end
