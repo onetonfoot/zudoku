@@ -20,7 +20,15 @@ defmodule ZudokuWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ZudokuWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+    
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: ZudokuWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: ZudokuWeb.Endpoint}
+    
+    forward "/", Absinthe.Plug,
+      schema: ZudokuWeb.Schema
+  end
 end

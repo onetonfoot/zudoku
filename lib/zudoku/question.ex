@@ -7,7 +7,7 @@ defmodule Zudoku.Question do
     field :readme, :string
     field :solution, :string
     field :test, :string
-    field :lang_id, :id
+    belongs_to :lang, Zudoku.Language
 
     timestamps()
   end
