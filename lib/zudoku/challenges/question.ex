@@ -1,4 +1,4 @@
-defmodule Zudoku.Question do
+defmodule Zudoku.Challenges.Question do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,7 +7,9 @@ defmodule Zudoku.Question do
     field :readme, :string
     field :solution, :string
     field :test, :string
-    belongs_to :lang, Zudoku.Language
+    has_many :trials, Zudoku.Challenges.Trial
+    belongs_to :lang, Zudoku.Challenges.Lang
+
 
     timestamps()
   end
@@ -15,7 +17,7 @@ defmodule Zudoku.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:readme, :test, :solution, :question])
-    |> validate_required([:readme, :test, :solution, :question])
+    |> cast(attrs, [:question, :readme, :solution, :test])
+    |> validate_required([:question, :readme, :solution, :test])
   end
 end
