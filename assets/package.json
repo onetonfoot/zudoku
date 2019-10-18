@@ -2,8 +2,8 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "deploy": "cp -R static/* ../priv/static/ && parcel build src/index.js --out-dir ../priv/static/dist --public-url dist  --no-cache",
-    "watch": "cp -R static/* ../priv/static/ && parcel watch src/index.js --out-dir ../priv/static/dist --public-url dist "
+    "deploy": "./deploy.sh",
+    "watch": "./watch.sh"
   },
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
