@@ -13,12 +13,6 @@ defmodule ZudokuWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ZudokuWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   # Other scopes may use custom stacks.
   scope "/api" do
     pipe_through :api
@@ -30,5 +24,12 @@ defmodule ZudokuWeb.Router do
     
     forward "/", Absinthe.Plug,
       schema: ZudokuWeb.Schema
+  end
+
+  scope "/", ZudokuWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 end
