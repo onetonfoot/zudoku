@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const LANGAUGE = gql`
     query FindLang($name: String) {
@@ -18,13 +18,13 @@ const LANGAUGE = gql`
     }
 `;
 
-function capitalizeFLetter(string) {
+function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function Lang() {
     let { name } = useParams();
-    name = capitalizeFLetter(name);
+    name = capitalizeFirstLetter(name);
     const { loading, error, data } = useQuery(LANGAUGE, {
         variables: { name },
     });
@@ -40,8 +40,10 @@ function Lang() {
             <h1>{name}</h1>
             <p>{desc}</p>
             {questions.map(ques => (
-                <div>
-                    <h2>{ques.question}</h2>
+                <div key={ques.id}>
+                    <Link to={`/ques/${ques.id}`}>
+                        <h2>{ques.question}</h2>
+                    </Link>
                     <p>{ques.readme}</p>
                 </div>
             ))}

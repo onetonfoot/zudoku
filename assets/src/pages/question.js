@@ -3,42 +3,37 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { useParams } from 'react-router-dom';
 
-const LANGAUGE = gql`
-    query FindLang($name: String) {
-        findLang(name: $name) {
+const QUESTION = gql`
+    query FindQuestion($id: Int) {
+        findQuestion(id: $id) {
             id
-            name
-            desc
-            questions {
+            lang {
                 id
-                question
-                readme
+                name
             }
+            question
+            readme
         }
     }
 `;
 
 function Question() {
-    let { name } = useParams();
-    const { loading, error, data } = useQuery(LANGAUGE, {
-        variables: { name },
+    const { id } = useParams();
+    const { loading, error, data } = useQuery(QUESTION, {
+        variables: { id },
     });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
+    if (data.findQuestion === null) return <p>Question not in DB</p>;
 
-    const { desc, questions } = data.findLang;
+    const { lang, question, readme } = data.findQuestion;
 
     return (
-        <div className="App">
-            <h1>{name}</h1>
-            <p>{desc}</p>
-            {questions.map(ques => (
-                <div>
-                    <h2>{ques.question}</h2>
-                    <p>{ques.readme}</p>
-                </div>
-            ))}
+        <div>
+            <h1>{lang.name}</h1>
+            <h1>{question}</h1>
+            <p>{readme}</p>
         </div>
     );
 }

@@ -9,6 +9,7 @@ import client from './queries';
 import AllLangauges from './pages/allLang';
 import Lang from './pages/lang';
 import NotFound from './pages/notFound';
+import Question from './pages/question';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/" component={AllLangauges} />
                     <Route path="/lang/:name" component={Lang} />
+                    <Route path="/ques/:id" component={Question} />
                     <Route component={NotFound} />
                 </Switch>
             </Router>
