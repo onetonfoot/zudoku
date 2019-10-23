@@ -18,20 +18,14 @@ const LANGAUGE = gql`
     }
 `;
 
-function capitalizeFLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function Lang() {
+function Question() {
     let { name } = useParams();
-    name = capitalizeFLetter(name);
     const { loading, error, data } = useQuery(LANGAUGE, {
         variables: { name },
     });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-    if (data.findLang === null) return <p> No such lang</p>;
 
     const { desc, questions } = data.findLang;
 
@@ -49,4 +43,4 @@ function Lang() {
     );
 }
 
-export default Lang;
+export default Question;
