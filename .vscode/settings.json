@@ -1,0 +1,12 @@
+{ 
+    "eslint.workingDirectories": ["./assets"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+    },
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+    },
+}
