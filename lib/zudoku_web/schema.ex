@@ -7,7 +7,7 @@ defmodule ZudokuWeb.Schema do
     object :language do
         field :id, non_null(:id)
         field :name, non_null(:string)
-        field :description, non_null(:string)
+        field :desc, non_null(:string)
         field :questions, list_of(:question) do
             resolve fn lang, _, _ ->
                 {:ok, Repo.preload(lang, :questions).questions}
