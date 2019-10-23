@@ -1,6 +1,6 @@
 defmodule ZudokuWeb.Schema do
     use Absinthe.Schema
-  
+
     alias ZudokuWeb.{ChallengesResolver}
     alias Zudoku.Repo
 
@@ -15,7 +15,7 @@ defmodule ZudokuWeb.Schema do
         end
     end
 
-    object :question do 
+    object :question do
         field :id, non_null(:id)
         field :question, non_null(:string)
         field :readme, non_null(:string)
@@ -39,17 +39,17 @@ defmodule ZudokuWeb.Schema do
         field :name, non_null(:string)
     end
 
-    object :trail do
+    object :trial do
         field :id, non_null(:id)
         field :passed, non_null(:boolean)
         field :question, non_null(:question) do
-            resolve fn trail, _, _ ->
-                {:ok, Repo.preload(trail, :question).question}
+            resolve fn trial, _, _ ->
+                {:ok, Repo.preload(trial, :question).question}
             end
         end
         field :user, non_null(:user) do
-            resolve fn trail, _, _ ->
-                {:ok, Repo.preload(trail, :user).user}
+            resolve fn trial, _, _ ->
+                {:ok, Repo.preload(trial, :user).user}
             end
         end
     end
@@ -60,7 +60,8 @@ defmodule ZudokuWeb.Schema do
       end
 
       field :find_lang, :language do
-        arg :name, non_null(:string)
+        arg :name, :string
+        arg :id, :id
         resolve &ChallengesResolver.find_lang/3
       end
 
@@ -68,9 +69,19 @@ defmodule ZudokuWeb.Schema do
         resolve &ChallengesResolver.all_questions/3
       end
 
-      field :all_trails, non_null(list_of(non_null(:trail))) do
-        resolve &ChallengesResolver.all_trails/3
+      field :find_question, :question do
+        arg :question, :string
+        arg :id, :id
+        resolve &ChallengesResolver.find_question/3
       end
-      
+
+      field :all_trials, non_null(list_of(non_null(:trial))) do
+        resolve &ChallengesResolver.all_trials/3
+      end
+
+      field :find_trial, :trial do
+        arg :id, :id
+        resolve &ChallengesResolver.find_trial/3
+      end
     end
   end

@@ -1,6 +1,5 @@
 defmodule ZudokuWeb.ChallengesResolver do
     alias Zudoku.Challenges
-    alias Zudoku.Repo
 
     def all_questions(_root, _args, _info) do
         questions = Challenges.list_questions()
@@ -12,7 +11,7 @@ defmodule ZudokuWeb.ChallengesResolver do
         {:ok, langs}
     end
 
-    def all_trails(_root, _args, _info) do
+    def all_trials(_root, _args, _info) do
         trials = Challenges.list_trials()
         {:ok, trials}
     end
@@ -20,5 +19,15 @@ defmodule ZudokuWeb.ChallengesResolver do
     def find_lang(_root, args, _info) do
         lang = Challenges.get_lang_by(args)
         {:ok, lang}
+    end
+
+    def find_question(_root, args, _info) do
+        question = Challenges.get_question_by(args)
+        {:ok, question}
+    end
+
+    def find_trial(_root, args, _info) do
+        trial = Challenges.get_trial_by(args)
+        {:ok, trial}
     end
 end

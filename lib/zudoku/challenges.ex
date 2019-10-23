@@ -133,6 +133,7 @@ defmodule Zudoku.Challenges do
 
   """
   def get_question!(id), do: Repo.get!(Question, id)
+  def get_question_by(opts), do: Repo.get_by(Question, opts)
 
   @doc """
   Creates a question.
@@ -229,6 +230,7 @@ defmodule Zudoku.Challenges do
 
   """
   def get_trial!(id), do: Repo.get!(Trial, id)
+  def get_trial_by(opts), do: Repo.get_by(Trial, opts)
 
   @doc """
   Creates a trial.

@@ -37,3 +37,5 @@ npm-debug.log
 
 
 .cache
+
+.elixir_ls/
