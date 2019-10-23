@@ -45,6 +45,7 @@ defmodule Zudoku.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4.0"},
+      {:faker, "~> 0.13"}
     ]
   end
 

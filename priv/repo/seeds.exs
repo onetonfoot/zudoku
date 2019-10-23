@@ -13,55 +13,44 @@
 alias Zudoku.Repo
 alias Zudoku.Accounts.User
 alias Zudoku.Challenges.{Lang, Question, Trial}
+alias Faker.{Cannabis, Name, Internet}
 
-lang_elixir = %Lang{name: "Elixir", desc: "Elixir is good for writing backend applications"} |> Repo.insert!
-lang_rust = %Lang{name: "Rust", desc: "Rust is good for system programming"} |> Repo.insert!
+elixir = %Lang{name: "Elixir", desc: "Elixir is good for writing backend applications"} |> Repo.insert!
+rust = %Lang{name: "Rust", desc: "Rust is good for system programming"} |> Repo.insert!
+julia = %Lang{name: "Julia", desc: "Julia is good for scientific computing"} |> Repo.insert!
+elm = %Lang{name: "Elm", desc: "Elm is good for web development"} |> Repo.insert!
 
-user_1 = %User {
-    name: "Dom",
-    email: "Dom@dom.com",
-    password: "p@ssw0rd"
+langs = [elixir, rust, julia, elm]
+
+user = %User {
+    name: "Test",
+    email: "test@test.com",
+    password: "password"
 } |> Repo.insert!
 
-user_2 = %User {
-    name: "Karen",
-    email: "Karen@karen.com",
-    password: "p@ssw0rd"
-} |> Repo.insert!
 
-question_1 = %Question {
-    question: "Two-fer", 
-    readme: "Please don't read me!",
-    solution: "I cant be solved!",
-    test: "Testing is not my cup of tea",
-}
-question_1 = Ecto.build_assoc(lang_elixir, :questions, question_1) |> Repo.insert!
+for i <- 0..5 do
+    u = %User {
+        name: Name.name(),
+        email: Internet.email(),
+        password: "password",
+    } |> Repo.insert!
 
-question_2 = %Question {
-    question: "Roman Numerals", 
-    readme: "Please don't read me!",
-    solution: "I cant be solved!",
-    test: "Testing is not my cup of tea",
-}
-question_2 = Ecto.build_assoc(lang_rust, :questions, question_2) |> Repo.insert!
+    for i <- 0..5 do 
+        q = %Question {
+            question: Cannabis.strain(), 
+            readme: Cannabis.health_benefit() ,
+            solution: "I cant be solved!",
+            test: "Testing is not my cup of tea",
+        }
+        
+        q = Ecto.build_assoc(Enum.random(langs), :questions, q) |> Repo.insert!
 
-question_3 = %Question {
-    question: "Two-fer", 
-    readme: "Please don't read me!",
-    solution: "I cant be solved!",
-    test: "Testing is not my cup of tea",
-}
-question_3 = Ecto.build_assoc(lang_rust, :questions, question_3) |> Repo.insert!
+        trial = %Trial {
+            passed: false,
+        }
+        trial = Ecto.build_assoc(u, :trials, trial)
+        trial = Ecto.build_assoc(q, :trials, trial) |> Repo.insert!
 
-
-trial_1 = %Trial {
-    passed: false,
-}
-trial_1 = Ecto.build_assoc(user_1, :trials, trial_1)
-trial_1 = Ecto.build_assoc(question_1, :trials, trial_1) |> Repo.insert!
-
-trial_2 = %Trial {
-    passed: true,
-}
-trial_2 = Ecto.build_assoc(user_1, :trials, trial_2)
-trial_2 = Ecto.build_assoc(question_1, :trials, trial_2) |> Repo.insert!
+    end
+end
